@@ -1,0 +1,12 @@
+% Court stuff
+% probably need to update...
+\newenvironment{notice}{\scriptsize\renewcommand\sfdefault{lmssq}\sffamily\bfseries}{}
+\newenvironment{tp}{\thispagestyle{empty}\renewcommand{\para}[1]{}\setcounter{page}{1}\begin{center}\begin{minipage}{250pt}\hyphenpenalty 1000000}{\end{minipage}\end{center}}
+\newenvironment{affaires}{ \vfill\begin{tp}\begin{center}}{\end{center}\end{tp}\vskip 32pt}
+\newenvironment{qualifparties}{\begin{flushright} \itshape\small}{\end{flushright}\vskip -3pt}
+\newenvironment{titlebrief}{\vskip 56pt\begin{center}\large\bfseries }{\end{center}\vskip 56pt}
+\newenvironment{listparties}{\begin{tp}\small}{\end{tp}}
+\newenvironment{soumisparavocat}{\vfill\begin{center} \begin{minipage}{125pt}\renewcommand{\para}[1]{}\setcounter{page}{1}\renewcommand\sfdefault{lmssq}\sffamily\scriptsize}{\end{minipage}\end{center}\vfill\vfill \cleardoublepage}
+\newenvironment{briefsign}{\vfill\bigskip\begin{center}\footnotesize}{\vfill\vfill\vfill \end{center}\cleardoublepage}
+\newenvironment{jpquote}{\begin{quote}}{\end{quote}}
+\newenvironment{pcm}{\renewcommand{\para}[1]{}}{}

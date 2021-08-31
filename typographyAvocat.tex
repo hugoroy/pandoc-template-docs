@@ -1,0 +1,150 @@
+%%%%%%%%%%%%%%% LETTERS %%%%%%%%%%%%%%%%%
+
+% <div class="lettre destinataire">
+% **Destinataire**
+% Adresse
+% XXX Ville
+
+% Par LRAR et par email
+% </div>
+
+% <div class="lettre date">
+% Paris, le XX xxxxx 2021
+% </div>
+
+% <div class="lettre objet">
+% </div>
+%
+% ---
+% header-includes:
+%   \include{typographyAvocat}
+%   \renewcommand\doctitle{}
+%   \pagestyle{lettrehroyavocat}
+%   \assignpagestyle{\chapter}{lettrehroyavocat}
+%   \newenvironment{CSLReferences}{}{}
+%   \newcommand\headernotice{PROJET CONFIDENTIEL AVOCAT/CLIENT\hskip 1.05cm}
+%   \newfontfamily\headerfont{Input Sans Compressed}
+%   \newfontfamily\signfont[Scale=0.9]{Input Sans Narrow}
+%   \newfontfamily\quotefont[Scale=1]{Inter Light}
+% pandoc-latex-environment:
+%   lettredest: [lettre, destinataire]
+%   lettreobj: [lettre, objet]
+%   lettreannexe: [lettre, annexe]
+%   signature: [signature]
+%   bordereau: [bordereau]
+% ...
+
+\usepackage{wallpaper}
+
+\newenvironment{lettredest}{
+\ThisCenterWallPaper{1}{/home/hugo/Avocat/modeles/entetes/lettre.pdf}
+
+\thispagestyle{lettrehroyavocatune}
+\begin{flushright}\begin{minipage}{6cm}
+\vskip 2.5cm
+
+\setlength{\parskip}{1.2em}
+\renewcommand\para{}
+}
+{\vskip 1cm ~\end{minipage}\end{flushright}}
+
+
+\newenvironment{lettreobj}{\renewcommand\para{}\vskip 1.5cm \bfseries Objet :}{\vskip 1cm}
+
+\newenvironment{signature}{\begin{center}
+\renewcommand\para{}
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    % define a signfont in your preamble with
+    % \newfontfamily\signfont[Options]{Font}
+        \ifx\signfont\undefined \else \signfont \fi
+    \fi
+  }
+  {\end{center}}
+
+
+\newenvironment{noparanum}{
+  \renewcommand\para{}
+}
+
+\newenvironment{bordereau}{
+  \renewcommand\para{}
+}
+
+\newenvironment{lettreannexe}{\cleardoublepage
+\renewcommand\para{}
+\thispagestyle{lettrehroyavocatpiece}
+\pagestyle{lettrehroyavocatnopg}
+
+}{\pagestyle{lettrehroyavocatnopg}\cleardoublepage }
+
+
+\newpagestyle{lettrehroyavocatune}[
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    % define a headerfont in your preamble with
+    % \newfontfamily\headerfont[Options]{Font}
+        \ifx\headerfont\undefined \else \headerfont \fi
+    \fi
+\footnotesize]{
+\sethead[][
+        ][]  % even
+        % {\normalsize \textbf{HUGO ROY}~|~AVOCAT À LA COUR}{
+        {}{
+        }{
+                \ifx\headernotice\undefined \else \headernotice \fi
+                }
+\widenhead*{52pt}{0pt}
+\setfoot[][
+        ][] %even
+        {}{}{}
+        }
+
+\newpagestyle{lettrehroyavocat}[\small
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    % define a headerfont in your preamble with \newfontfamily\headerfont[Options]{Font}
+        \ifx\headerfont\undefined \else \headerfont \fi
+    \fi
+]{
+\sethead[\llap{\thepage
+        }~][
+        ][]  % even
+        {\llap{\textbf{HUGO ROY}~|}~AVOCAT À LA COUR}{
+        }{\rlap{\thepage
+        }~}
+        } % odd
+
+\newpagestyle{lettrehroyavocatnopg}[\small
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    % define a headerfont in your preamble with \newfontfamily\headerfont[Options]{Font}
+        \ifx\headerfont\undefined \else \headerfont \fi
+    \fi
+]{
+  \sethead[][][]
+        {\llap{\textbf{HUGO ROY}~|}~AVOCAT À LA COUR}{
+        }{}
+        } % odd
+
+\newcounter{piecenumero}
+\newif\ifcounting\countingtrue
+\newcommand{\pieceno}{\ifcounting\refstepcounter{piecenumero}\fi \thepiecenumero}
+
+\newpagestyle{lettrehroyavocatpiece}[]{
+  \sethead[][][]
+  {\small
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    % define a headerfont in your preamble with \newfontfamily\headerfont[Options]{Font}
+        \ifx\headerfont\undefined \else \headerfont \fi
+    \fi
+    \llap{\textbf{HUGO ROY}~|}~AVOCAT À LA COUR}{
+  }{
+
+    \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+    \addfontfeatures{Numbers=Monospaced}
+    \fi
+    \normalsize \bfseries Pièce n\textsuperscript{o}~\pieceno{}}
+        } % odd
