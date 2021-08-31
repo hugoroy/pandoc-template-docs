@@ -1,0 +1,25 @@
+to: latex
+self-contained: true
+standalone: true
+
+citeproc: false
+
+filters:
+- ${.}/pandoc/filters/french.sh
+- ${.}/pandoc/filters/toLatex.sh
+- ${.}/pandoc/filters/toLatex_xetex-fr.sh
+- pandoc-latex-environment
+
+
+# ERROR, WARNING, or INFO
+verbosity: INFO
+log-file: .pandoc-log.json
+
+
+pdf-engine: xelatex
+#pdf-engine-opts:
+#- "-shell-escape"
+
+track-changes: accept
+
+fail-if-warnings: false

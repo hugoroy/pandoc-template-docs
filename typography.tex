@@ -1,0 +1,217 @@
+\usepackage[pagestyles,psfloats]{titlesec}
+\usepackage{textcase}
+% optional
+% \usepackage{varioref} necessary in your preamble for \vparnum to work
+% \usepackage{wallpaper}
+%% % If you have a cover/background
+%% \ThisCenterWallPaper{1}{file.pdf}
+
+%%%%%%%%%%%%%%%%% EXTRA FONT OPTIONS %%%%%%%%%%%%%%%%%
+%% % Access styles
+%% \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+%%     \else % if luatex or xetex
+%%         \newfontfamily\sbweight{Fontname Semi Bold}
+%%         \newfontfamily\blackweight{Fontname Black}
+%%         % If font has no small caps
+%%         \renewcommand{\textsc}{\MakeTextUppercase}
+%% \fi
+
+%%%%%%%%%%%%%%%%% BODY %%%%%%%%%%%%%%%%%
+
+%\parskip=8.25pt
+%\setlength{\parskip}{6pt plus 2pt minus 1pt}}
+
+\widowpenalty10000
+\clubpenalty10000
+
+%%%%%%%%%%%% ENUMERATE LISTS %%%%%%%%%%%%
+
+\usepackage[shortlabels]{enumitem}
+\setlist{labelsep=7pt}
+
+% Use tabular numbers for the enumerated list marker
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+        \setlist[enumerate]{font=\addfontfeatures{Numbers=Monospaced}}
+\fi
+
+%%%%%%%%%%%% TABLES %%%%%%%%%%%%
+
+% Use tabular numbers in tables
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+        \let\oldtable\table
+        \let\endoldtable\endtable
+        \renewenvironment{table}{
+            \begin{oldtable}
+              \addfontfeatures{Numbers=Monospaced}
+            }
+            {\end{oldtable}}
+\fi
+
+%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%% 
+
+% Use the \title of the document in places other than \maketitle (e.g. headers).
+% Specify an alternative title to be used with \renewcommand\doctitle{}
+\ifx\@title\undefined
+    % The document title may be used beyond LaTeX' \maketitle,
+    % e.g. for headers, don't forget to \renewcommand\doctitle
+    % if no title is set
+    \newcommand{\doctitle}{}
+    \else
+        \let\oldtitle\title
+        \newcommand{\doctitle}{}
+        \renewcommand{\title}[1]{%
+        % Display title in small caps
+        \oldtitle{\scshape\MakeTextLowercase{#1}}%
+        % Use the title variable 
+        \renewcommand{\doctitle}{#1}}
+\fi
+
+
+%%%%%%%%%% TABLE OF CONTENTS %%%%%%%%%%%%
+
+% Place table of content at the bottom of the page and clear
+% for a new opening page after
+\let\oldtableofcontents\tableofcontents
+\renewcommand\tableofcontents{\vfill \oldtableofcontents \cleardoublepage}
+
+%%%%%%%%%%%%%%%%% HEADINGS %%%%%%%%%%%%%%%%%%
+
+%% \renewcommand{\thepart}{\Roman{part}}
+%\titleclass{\part}{page}
+%\assignpagestyle{\part}{plain}
+
+%%\renewcommand{\thechapter}{\Roman{chapter}}
+%% \titleformat{\chapter}[display]{\centering\Large}{}{0pt}{%
+%% \thechapter. \textsc}
+%% \titleformat{name=\chapter,numberless}[display]{\centering\Large}{}{0pt}{%
+%% \textsc}
+%%\titlespacing{\chapter}{3pc}{*3}{*2}[3pc]
+%%\titleclass{\chapter}{straight}
+%% \titleclass{\chapter}{top}
+%%\assignpagestyle{\chapter}{plain}
+
+% For Faits/Discussion type chapters in court filings
+\titleformat{\chapter}[display]{\centering\bfseries}{}{0pt}{}
+\titleformat{name=\chapter,numberless}[display]{\centering\bfseries}{}{0pt}{%
+}
+\titlespacing{\chapter}{\parindent}{9pt}{9pt}[\parindent]
+%%\assignpagestyle{\chapter}{plain}
+
+\titleformat{\section}[display]{\large\bfseries}{}{0pt}{\strut\llap{\thesection.~}}
+\titleformat{name=\section,numberless}[display]{\large\bfseries}{}{0pt}{}
+\titlespacing{\section}{\parindent}{9pt}{9pt}[\parindent]
+
+\renewcommand{\thesection}{\arabic{section}}
+
+\titleformat{\subsection}[display]{\bfseries}{}{0pt}{\strut\llap{\small\thesubsection.~}}
+\titleformat{name=\subsection,numberless}[display]{\bfseries}{}{0pt}{}
+\titlespacing{\subsection}{\parindent}{2pt}{6pt}[10pt]
+
+\titleformat{\subsubsection}[display]{\bfseries\small}{}{0pt}{\thesubsubsection.~}
+\titleformat{name=\subsubsection,numberless}[display]{\bfseries\small}{}{0pt}{}
+\titlespacing{\subsubsection}{\parindent}{0pt}{0pt}[10pt]
+
+\titleformat{\paragraph}[display]{\bfseries\small}{\quad}{0pt}{\theparagraph.~}[]
+\titleformat{name=\paragraph,numberless}[display]{\bfseries\small}{}{0pt}{}[]
+\titlespacing{\paragraph}{0pt}{10pt}{\parindent}[\parindent]
+
+\titleformat{\subparagraph}[runin]{\bfseries\small}{}{0pt}{\thesubparagraph.~}[.\enspace]
+\titleformat{name=\subparagraph,numberless}[runin]{\bfseries\small}{}{0pt}{}[.\enspace]
+\titlespacing{\subparagraph}{\parindent}{10pt}{\parindent}[\parindent]
+
+\titleformat{\subsubparagraph}[runin]{\slshape\small}{}{0pt}{\thesubsubparagraph.~}[.\enspace]
+\titleformat{name=\subsubparagraph,numberless}[runin]{\slshape\small}{}{0pt}{}[.\enspace]
+\titlespacing{\subsubparagraph}{\parindent}{10pt}{\parindent}[\parindent]
+
+
+%%%%%%%%%%%%%%%%% HEADS & FOOTS %%%%%%%%%%%%%%%%%
+
+%% % Chose your page style
+%% \pagestyle{withdoctitle}
+
+\newpagestyle{main}[\footnotesize\scshape]{
+    \sethead[\normalsize\llap{\thepage}~][][]
+            {}{}{\normalsize\rlap{\thepage}~}
+    }
+
+\newpagestyle{withdoctitle}[\small\scshape]{
+\sethead[\normalsize\llap{\thepage
+        }~][
+        ][]  % even
+        {\MakeTextLowercase{\doctitle}}{
+        }{\rlap{\thepage
+        }~}} % odd
+     
+\newpagestyle{chapter}[\small\scshape]{
+\sethead[\normalsize\llap{\thepage
+        }~][
+        ][]  % even
+        {\MakeTextLowercase{}}{
+        }{\rlap{\thepage
+        }~}} % odd
+
+\newpagestyle{back}[]{
+\sethead[][][]{}{}{}
+\setfoot[][\thepage /\thepage][]{}{\thepage /\thepage}{}%{\rlap{\thepage}}}% odd
+}
+     
+%% % If a logo is used
+%% \usepackage{graphicx}
+%% \newpagestyle{withlogo}[\footnotesize\scshape]{
+%% \sethead[][][]  % even
+%% {\llap{\includegraphics[height=0.25cm]{logo.pdf}\hspace{0.07cm}}\raisebox{-0.35cm}{\includegraphics[height=0.6cm]{logotype.pdf}}}{\doctitle}{} % odd
+%% \setfoot[\small\llap{\thepage}~][][]{}{}{\small\rlap{\thepage}~}
+%% }
+
+%%%%%%%%%%%%%%%%% STUFF %%%%%%%%%%%%%%%%%
+
+% Hang quotes
+\def\Hangquote{\par\ifhmode\ERROR\fi\leavevmode\llap}                         
+
+% Number paragraphs
+\newcommand{\para}{}
+\newcounter{paranumero}
+\newif\ifcounting\countingtrue
+\renewcommand{\para}[1]{\noindent\ifcounting\refstepcounter{paranumero}\fi{\small\leavevmode\llap{\textsf{\scriptsize
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \else % if luatex or xetex
+        \setlist[enumerate]{font=\addfontfeatures{Numbers=Monospaced}}
+\fi
+        \theparanumero}\quad\quad}}\label{#1}}
+
+
+\newenvironment{noparanum}{
+  \renewcommand\para{}
+}
+
+
+% Ref to numbered paragraphs
+\newcommand{\parnum}[1]{¶\ref{#1}}
+\newcommand{\vparnum}[1]{¶\vref{#1}}
+
+% Block quotes
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}{
+  \vskip 12pt \begin{oldquote}
+        \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+        \renewcommand{\para}[1]{}\renewcommand\sfdefault{lmssq}\sffamily\scriptsize
+          \else % if luatex or xetex
+          % define a quotefont in your preamble with \newfontfamily\quotefont[Options]{Font}
+          \renewcommand{\para}[1]{}
+          \ifx\quotefont\undefined \else \quotefont \fi
+        \fi
+        }
+  {\end{oldquote}\vskip 14pt}
+
+
+%%%%%%%%%%%%%%% FOOTNOTES %%%%%%%%%%%%%%%%%
+
+% Don't show the footnoterule use whitespace
+\renewcommand\footnoterule{\vskip 16pt}
+\let\oldfootnote\footnote
+\renewcommand\footnote[1]{\oldfootnote{\renewcommand\para{}#1}}
+
+

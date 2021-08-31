@@ -1,0 +1,27 @@
+to: html5
+self-contained: true
+standalone: true
+template: ${.}/pandoc/template.html5
+
+strip-comments: true
+shift-heading-level-by: 1
+
+citeproc: false
+
+filters:
+- ${.}/pandoc/filters/french.sh
+- ${.}/pandoc/filters/toHtml.sh
+
+
+# ERROR, WARNING, or INFO
+verbosity: INFO
+log-file: .pandoc-log.json
+
+
+pdf-engine: xelatex
+#pdf-engine-opts:
+#- "-shell-escape"
+
+track-changes: accept
+
+fail-if-warnings: false
